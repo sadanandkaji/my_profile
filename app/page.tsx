@@ -1,103 +1,120 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [active, setActive] = useState("home");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  return (
+    <div className="bg-black min-h-screen text-white">
+      {/* Top Glassy Navbar */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
+        <div className="w-full max-w-4xl">
+          <div className="flex justify-between items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl">
+            <div className="text-white italic text-2xl font-semibold">S.k</div>
+
+            <div className="flex gap-8 text-md font-bold">
+              {["home", "projects", "blogs"].map((item) => (
+                <div
+                  key={item}
+                  role="button"
+                  tabIndex={0}
+                  className={`cursor-pointer select-none outline-none transition duration-200 ${
+                    active === item
+                      ? "border-b-2 border-green-400"
+                      : "border-b-2 border-transparent"
+                  }`}
+                  onClick={() => {
+                    setActive(item);
+
+                    if (item === "projects") {
+                      const section = document.getElementById("projects");
+                      section?.scrollIntoView({ behavior: "smooth" });
+                    }
+
+                    if (item === "home") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+
+                    // Add logic for other sections if needed
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Page Content */}
+      <div className="pt-32 px-6 max-w-5xl mx-auto">
+        {/* Intro and image */}
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+          {/* Text */}
+          <div className="text-2xl leading-relaxed text-center md:text-left flex-1">
+            Hi, this is{" "}
+            <span className="text-green-400 font-semibold">Sadanand</span>. I
+            am a developer currently studying BCA at{" "}
+            <span className="text-purple-400 font-medium">
+              Acharya Institute of Graduate Studies
+            </span>.
+          </div>
+
+          {/* Image container */}
+          <div className="relative w-40 h-40 group cursor-pointer">
+            {/* Bottom image (tilted) */}
+            <motion.img
+              src="/myimage2.jpg"
+              alt="Tilted Sadanand"
+              className="absolute top-0 left-0 w-40 h-40 object-cover shadow-lg rounded-xl z-10 group-hover:z-30 transition-all duration-100"
+              initial={{ rotate: 3, scale: 1 }}
+              whileHover={{ scale: 1.05, rotate: 6 }}
+              transition={{ duration: 0.1 }}
             />
-            Deploy now
-          </a>
+
+            {/* Top image (straight) */}
+            <motion.img
+              src="/myimage.jpg"
+              alt="Straight Sadanand"
+              className="absolute top-0 left-0 w-40 h-40 object-cover shadow-lg rounded-xl z-30 group-hover:z-10 transition-all duration-100"
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 0.98 }}
+              transition={{ duration: 0.1 }}
+            />
+          </div>
+        </div>
+
+        {/* Project Section */}
+        <div className="mt-12 w-full" id="projects">
+          <h2 className="text-xl flex justify-center font-bold mb-4 text-green-400">Projects</h2>
+
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://connect-art.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
+            className="block bg-white/10 backdrop-blur-md p-4 rounded-xl shadow-md hover:shadow-xl transition duration-200 hover:scale-105"
           >
-            Read our docs
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              {/* Project Image */}
+              <img
+                src="/Screenshot 2025-06-24 204511.png"
+                alt="ConnectArt Screenshot"
+                className="w-64 h-auto rounded-xl object-cover"
+              />
+
+              {/* Project Text */}
+              <div>
+                <h3 className="text-white text-lg font-semibold">ConnectArt</h3>
+                <p className="text-gray-300 text-sm mt-1">
+                  Discover and connect with talented artists — singers, dancers, speakers, and DJs.
+                </p>
+                <p className="text-purple-400 mt-2 underline">connect-art.vercel.app</p>
+              </div>
+            </div>
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
