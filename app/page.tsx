@@ -1,12 +1,10 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Home() {
   const [active, setActive] = useState("home");
-
-  // Placeholder blog list (empty to show "No blogs")
-  const blogs: { title: string; content: string }[] = []; // Add items here later
 
   return (
     <div className="bg-black min-h-screen text-white">
@@ -30,18 +28,11 @@ export default function Home() {
                   onClick={() => {
                     setActive(item);
 
-                    if (item === "projects") {
-                      const section = document.getElementById("projects");
-                      section?.scrollIntoView({ behavior: "smooth" });
-                    }
+                    const section = document.getElementById(item);
+                    section?.scrollIntoView({ behavior: "smooth" });
 
                     if (item === "home") {
                       window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-
-                    if (item === "blogs") {
-                      const section = document.getElementById("blogs");
-                      section?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
                 >
@@ -86,45 +77,43 @@ export default function Home() {
           </div>
         </div>
 
-       {/* Project Section */}
-<div className="mt-12 w-full scroll-mt-28" id="projects">
-  <h2 className="text-xl flex justify-center font-bold mb-4 text-green-400">Projects</h2>
+        {/* Project Section */}
+        <div className="mt-12 w-full scroll-mt-28" id="projects">
+          <h2 className="text-xl flex justify-center font-bold mb-4 text-green-400">Projects</h2>
 
-  <a
-    href="https://connect-art.vercel.app/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block bg-white/10 backdrop-blur-md p-4 rounded-xl shadow-md hover:shadow-xl transition duration-200 hover:scale-105"
-  >
-    <div className="flex flex-col md:flex-row items-center gap-4">
-      <img
-        src="/Screenshot 2025-06-24 204511.png"
-        alt="ConnectArt Screenshot"
-        className="w-64 h-auto rounded-xl object-cover"
-      />
-      <div className="text-center md:text-left">
-        <h3 className="text-white text-lg font-semibold">ConnectArt</h3>
-        <p className="text-gray-300 text-sm mt-1">
-          Discover and connect with talented artists — singers, dancers, speakers, and DJs.
-        </p>
-        <p className="text-purple-400 mt-2 underline">connect-art.vercel.app</p>
-      </div>
-    </div>
-  </a>
-</div>
+          <a
+            href="https://connect-art.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-white/10 backdrop-blur-md p-4 rounded-xl shadow-md hover:shadow-xl transition duration-200 hover:scale-105"
+          >
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <Image
+                src="/Screenshot 2025-06-24 204511.png"
+                alt="ConnectArt Screenshot"
+                width={256}
+                height={160}
+                className="rounded-xl object-cover"
+              />
+              <div className="text-center md:text-left">
+                <h3 className="text-white text-lg font-semibold">ConnectArt</h3>
+                <p className="text-gray-300 text-sm mt-1">
+                  Discover and connect with talented artists — singers, dancers, speakers, and DJs.
+                </p>
+                <p className="text-purple-400 mt-2 underline">connect-art.vercel.app</p>
+              </div>
+            </div>
+          </a>
+        </div>
 
-
-{/* Blogs Section */}
-<div
-  className="scroll-mt-28 min-h-[60vh] pb-32 flex flex-col items-center justify-center"
-  id="blogs"
->
-  <h2 className="text-xl font-bold mb-4 text-green-400">Blogs</h2>
-  <p className="text-gray-400 text-lg">No blog yet!</p>
-</div>
-
-
-
+        {/* Blogs Section */}
+        <div
+          className="scroll-mt-28 min-h-[60vh] pb-32 flex flex-col items-center justify-center"
+          id="blogs"
+        >
+          <h2 className="text-xl font-bold mb-4 text-green-400">Blogs</h2>
+          <p className="text-gray-400 text-lg">No blog yet!</p>
+        </div>
       </div>
     </div>
   );
