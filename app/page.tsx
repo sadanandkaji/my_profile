@@ -62,7 +62,7 @@ export default function Home() {
           <div className="text-2xl leading-relaxed text-center md:text-left flex-1">
             Hi, this is{" "}
             <span className="text-green-400 font-semibold">Sadanand</span>. I
-            am a developer currently studying BCA at{" "}
+            am a developer and a BCA graduate at{" "}
             <span className="text-purple-400 font-medium">
               Acharya Institute of Graduate Studies
             </span>.
