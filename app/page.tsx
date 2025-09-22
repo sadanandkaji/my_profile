@@ -7,10 +7,21 @@ export default function Home() {
   const [active, setActive] = useState("home");
 
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white" style={{
+    // backgroundImage:"radial-gradient(circle at 0.5px 0.5px ,rgba(6,182,212,0.2) 0.5px , transparent 0)",
+    // backgroundSize:"8px 8px",
+    // backgroundRepeat:"repeat",
+      backgroundImage: `
+      linear-gradient(to right , rgba(224, 231, 232, 0.1) 1.5px, transparent 1px),
+      linear-gradient(to bottom, rgba(228, 236, 237, 0.1) 1.5px, transparent 1px)
+    `,
+    backgroundSize: '20px 20px',
+    backgroundRepeat: 'repeat',
+    backgroundAttachment:"fixed"
+   }}>
       {/* Top Glassy Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-5xl">
           <div className="flex justify-between items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl">
             <div className="text-white italic text-2xl font-semibold">S.k</div>
 
