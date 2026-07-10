@@ -12,14 +12,17 @@ const GIFS = {
 const NAV_SAFE_ZONE = 84; // keep clear of the fixed navbar up top
 const SPEED = 1.1; // px per frame — slow, constant-velocity glide
 
+// Shared with the initial pos.current below and the inline style on first
+// render, so there is no gap between "what CSS paints" and "what JS thinks
+// the position is" — that gap was the top-then-drop jump on refresh.
+const START_X = 24;
+const START_Y = NAV_SAFE_ZONE + 24;
+
 export default function LuffyTracker() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const luffyRef = useRef<HTMLImageElement>(null);
 
-  // Current position lives here, not read from the DOM — calling
-  // getBoundingClientRect() every frame forces a synchronous layout, which
-  // was the source of the stutter/jump.
-  const pos = useRef({ x: 0, y: 0 });
+  const pos = useRef({ x: START_X, y: START_Y });
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -39,11 +42,9 @@ export default function LuffyTracker() {
       wrap.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
     };
 
-    // Spawn below the navbar instead of defaulting to (0,0), which sits
-    // directly under the "SK" logo until the first click moves it away.
-    pos.current.x = 24;
-    pos.current.y = NAV_SAFE_ZONE + 24;
-    render();
+    // No need to reset pos.current or call render() here — the wrapper's
+    // inline style already paints at (START_X, START_Y) before this effect
+    // even runs, so pos.current already matches what's on screen.
 
     const moveLuffy = (targetX: number, targetY: number) => {
       cancelAnimationFrame(animFrame);
@@ -89,7 +90,6 @@ export default function LuffyTracker() {
         x = e.clientX;
         y = e.clientY;
       }
-      // Center the sprite on the click point using its current rendered size.
       const rect = luffy.getBoundingClientRect();
       moveLuffy(x - rect.width / 2, y - rect.height / 2);
     };
@@ -108,11 +108,14 @@ export default function LuffyTracker() {
     <div
       ref={wrapRef}
       className="fixed top-0 left-0 pointer-events-none z-40"
-      style={{ transition: "none", willChange: "transform" }}
+      style={{
+        transition: "none",
+        willChange: "transform",
+        // Painted on the very first render (server + client), so there's
+        // no frame where the sprite sits at raw (0,0) under the navbar.
+        transform: `translate3d(${START_X}px, ${START_Y}px, 0)`,
+      }}
     >
-      {/* Fixed-size box so swapping between the still frame and the run gifs
-          (which may have slightly different intrinsic dimensions) never
-          shifts the sprite's footprint — that mismatch was the "jump". */}
       <div className="w-8 h-8 sm:w-14 sm:h-14 lg:w-20 lg:h-20">
         <img
           ref={luffyRef}
