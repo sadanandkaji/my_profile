@@ -51,14 +51,7 @@ export default function Projects() {
           </BlueprintCard>
         ))}
 
-        {/* Placeholder — remove once a real project takes this slot */}
-        <BlueprintCard label={`fig. ${String(PROJECTS.length + 1).padStart(2, "0")}`} className="border-dashed">
-          <p className="text-sm leading-relaxed" style={{ color: "var(--ink-dim)" }}>
-            More on the way — new builds land here as they ship. Add them to{" "}
-            <code style={{ fontFamily: "var(--font-mono)", color: "var(--gold)" }}>lib/projects.ts</code>{" "}
-            and this grid grows automatically.
-          </p>
-        </BlueprintCard>
+      
       </div>
     </div>
   );
