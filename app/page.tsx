@@ -34,7 +34,7 @@ export default function Home() {
 
               <div className="relative shrink-0 lg:hidden">
                 <div
-                  className="relative w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden"
+                  className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden"
                   style={{
                     border: "1px solid var(--line)",
                     boxShadow:
@@ -45,7 +45,7 @@ export default function Home() {
                     src="/myimage2.jpg"
                     alt="Portrait of Sadanand Kaji"
                     fill
-                    sizes="80px"
+                    sizes="(max-width: 640px) 96px, 112px"
                     className="object-cover plate"
                     priority
                   />
@@ -89,7 +89,6 @@ export default function Home() {
           {/* Big framed portrait — desktop only now. The mobile/tablet
               version is the small circular avatar next to the name above. */}
           <div className="relative shrink-0 self-center hidden lg:block">
-           
             <div
               className="relative w-72 h-[26rem] rounded-lg overflow-hidden rotate-[1.5deg]"
               style={{
