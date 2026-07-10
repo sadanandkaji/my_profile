@@ -16,7 +16,7 @@ export default function Projects() {
       </h1>
       <p className="text-lg leading-relaxed max-w-2xl mb-16" style={{ color: "var(--ink-dim)" }}>
         A running log of personal builds, hackathon projects, and freelance
-        client work — updated as new ones ship.
+        client work  updated as new ones ship.
       </p>
 
       <div className="grid sm:grid-cols-2 gap-x-8 gap-y-16">
