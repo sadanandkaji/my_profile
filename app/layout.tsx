@@ -1,20 +1,35 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import "./index.css";
+import Nav from "@/components/Nav";
+import Background from "@/components/Background";
+import PageTransition from "@/components/PageTransition";
+import LuffyTracker from "@/components/LuffyTracker";
+import CoordinateHUD from "@/components/CoordinateHUD";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "sk",
-  description: "sk profile",
+  title: "Sadanand Kaji — Developer",
+  description:
+    "Sadanand Kaji — MCA (RVITM), full-stack developer and freelancer. Building an AI-based CAD application. Two freelance projects delivered, multiple hackathon wins.",
 };
 
 export default function RootLayout({
@@ -25,9 +40,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
+        style={{ fontFamily: "var(--font-inter)", background: "var(--bg)", color: "var(--ink)" }}
       >
-        {children}
+        <Background />
+        <Nav />
+        <main className="relative z-10">
+          <PageTransition>{children}</PageTransition>
+        </main>
+        <CoordinateHUD />
+        <LuffyTracker />
       </body>
     </html>
   );
