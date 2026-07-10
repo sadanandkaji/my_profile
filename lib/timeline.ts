@@ -1,9 +1,9 @@
 export const TIMELINE = [
   {
     year: "2026-july",
-    title: "Building an AI-based CAD application",
+    title: "Building an AI based CAD application",
     detail:
-      "Currently deep in R&D — combining generative AI with parametric modeling.",
+      "Currently deep in R&D  combining generative AI with parametric modeling.",
   },
   {
     year: "2026-jan",

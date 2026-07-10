@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import BlueprintCard from "@/components/BlueprintCard";
 import { SOCIALS } from "@/lib/socials";
@@ -12,38 +13,120 @@ export default function Home() {
     <div className="max-w-5xl mx-auto px-6 pt-36 pb-24">
       {/* Hero */}
       <section className="mb-28">
-        <p
-          className="text-xs tracking-[0.2em] uppercase mb-5"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--gold)" }}
-        >
-        </p>
-        <h1
-          className="font-display italic text-5xl sm:text-7xl leading-[1.05] mb-6"
-          style={{ color: "var(--ink)" }}
-        >
-          Sadanand Kaji <span className="text-sm align-super not-italic" aria-hidden="true">👋</span>
-        </h1>
-        <p className="text-lg sm:text-xl max-w-2xl leading-relaxed" style={{ color: "var(--ink-dim)" }}>
-          Full-stack developer and freelancer, MCA at RVITM. I design and ship
-          products end to end — right now that means teaching a CAD tool to
-          understand plain language.
-        </p>
+        <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between gap-12">
+          <div className="max-w-2xl">
+            <p
+              className="text-xs tracking-[0.2em] uppercase mb-5"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--gold)" }}
+            >
+            </p>
 
-        <div className="flex flex-wrap gap-3 mt-10">
-          <Link
-            href="/projects"
-            className="px-5 py-2.5 rounded-md text-sm tracking-wide transition-transform hover:-translate-y-0.5"
-            style={{ background: "var(--gold)", color: "var(--bg)", fontFamily: "var(--font-mono)" }}
-          >
-            View projects
-          </Link>
-          <Link
-            href="/contact"
-            className="px-5 py-2.5 rounded-md text-sm tracking-wide transition-colors hover:border-[var(--gold)]"
-            style={{ border: "1px solid var(--line)", color: "var(--ink)", fontFamily: "var(--font-mono)" }}
-          >
-            Get in touch
-          </Link>
+            {/* Name row — on mobile/tablet a small round portrait sits to the
+                right of the name; on lg+ it's hidden here because the big
+                framed portrait takes over on the right of the whole hero. */}
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <h1
+                className="font-display italic text-5xl sm:text-7xl leading-[1.05]"
+                style={{ color: "var(--ink)" }}
+              >
+                Sadanand Kaji <span className="text-sm align-super not-italic" aria-hidden="true">yo</span>
+              </h1>
+
+              <div className="relative shrink-0 lg:hidden">
+                <div
+                  className="relative w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden"
+                  style={{
+                    border: "1px solid var(--line)",
+                    boxShadow:
+                      "0 6px 16px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(232,179,77,0.15)",
+                  }}
+                >
+                  <Image
+                    src="/myimage2.jpg"
+                    alt="Portrait of Sadanand Kaji"
+                    fill
+                    sizes="80px"
+                    className="object-cover plate"
+                    priority
+                  />
+                  <div className="absolute inset-0 grain pointer-events-none" style={{ opacity: 0.06 }} />
+                  <div className="absolute inset-0 foxing pointer-events-none" style={{ opacity: 0.7 }} />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(circle at center, transparent 55%, rgba(21,16,10,0.55) 100%)",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <p className="text-lg sm:text-xl leading-relaxed" style={{ color: "var(--ink-dim)" }}>
+              Full stack developer and freelancer, MCA at RVITM. I design and ship
+              products end to end right now that means teaching a CAD tool to
+              understand plain language.
+            </p>
+
+            <div className="flex flex-wrap gap-3 mt-10">
+              <Link
+                href="/projects"
+                className="px-5 py-2.5 rounded-md text-sm tracking-wide transition-transform hover:-translate-y-0.5"
+                style={{ background: "var(--gold)", color: "var(--bg)", fontFamily: "var(--font-mono)" }}
+              >
+                View projects
+              </Link>
+              <Link
+                href="/contact"
+                className="px-5 py-2.5 rounded-md text-sm tracking-wide transition-colors hover:border-[var(--gold)]"
+                style={{ border: "1px solid var(--line)", color: "var(--ink)", fontFamily: "var(--font-mono)" }}
+              >
+                Get in touch
+              </Link>
+            </div>
+          </div>
+
+          {/* Big framed portrait — desktop only now. The mobile/tablet
+              version is the small circular avatar next to the name above. */}
+          <div className="relative shrink-0 self-center hidden lg:block">
+           
+            <div
+              className="relative w-72 h-[26rem] rounded-lg overflow-hidden rotate-[1.5deg]"
+              style={{
+                border: "1px solid var(--line)",
+                boxShadow:
+                  "0 12px 30px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(232,179,77,0.12)",
+              }}
+            >
+              <Image
+                src="/myimage2.jpg"
+                alt="Portrait of Sadanand Kaji"
+                fill
+                sizes="288px"
+                className="object-cover plate"
+                priority
+              />
+              <div className="absolute inset-0 grain pointer-events-none" style={{ opacity: 0.06 }} />
+              <div className="absolute inset-0 foxing pointer-events-none" style={{ opacity: 0.7 }} />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, transparent 55%, rgba(21,16,10,0.55) 100%)",
+                }}
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  boxShadow: "inset 0 0 0 1px rgba(232,179,77,0.15)",
+                }}
+              />
+              <span className="tick tick-tl" />
+              <span className="tick tick-tr" />
+              <span className="tick tick-bl" />
+              <span className="tick tick-br" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -65,7 +148,7 @@ export default function Home() {
 
       {/* Currently building */}
       <section className="mb-28">
-        <BlueprintCard label="fig. a — currently building">
+        <BlueprintCard label=" currently building">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div>
               <div className="flex items-center gap-3 mb-2">
@@ -98,7 +181,6 @@ export default function Home() {
 
       {/* Skills legend */}
       <section className="mb-28">
-       
         <div className="grid sm:grid-cols-2 gap-6">
           {SKILLS.map((group) => (
             <div key={group.group} className="flex gap-4">
@@ -121,7 +203,6 @@ export default function Home() {
 
       {/* Socials */}
       <section>
-        
         <div className="flex flex-wrap gap-3">
           {SOCIALS.map((s) => (
             <a

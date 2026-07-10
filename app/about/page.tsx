@@ -11,8 +11,8 @@ export default function About() {
       </h1>
       <p className="text-lg leading-relaxed max-w-2xl mb-6" style={{ color: "var(--ink-dim)" }}>
         I&apos;m Sadanand, a full-stack developer currently completing my MCA
-        at RVITM. I like building things end to end — from schema to
-        interface — and I take on freelance client work alongside my own
+        at RVITM. I like building things end to end from schema to
+        interface and I take on freelance client work alongside my own
         projects.
       </p>
       <p className="text-lg leading-relaxed max-w-2xl mb-20" style={{ color: "var(--ink-dim)" }}>
@@ -23,7 +23,7 @@ export default function About() {
 
       {/* Education */}
       <section className="mb-20">
-        <BlueprintCard label="fig. a — education">
+        <BlueprintCard label="education">
           <p className="text-[10px] uppercase tracking-[0.15em] mb-2" style={{ fontFamily: "var(--font-mono)", color: "var(--teal)" }}>
             2023 — present
           </p>

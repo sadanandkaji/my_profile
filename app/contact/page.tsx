@@ -6,15 +6,15 @@ export default function Contact() {
     <div className="max-w-3xl mx-auto px-6 pt-36 pb-24">
      
       <h1 className="font-display italic text-4xl sm:text-6xl mb-6" style={{ color: "var(--ink)" }}>
-        Let&apos;s talk <span className="text-sm align-super not-italic">✉️</span>
+        Let&apos;s talk <span className="text-sm align-super not-italic">heehee</span>
       </h1>
       <p className="text-lg leading-relaxed max-w-xl mb-16" style={{ color: "var(--ink-dim)" }}>
         Open to freelance work and interesting collaborations. The fastest
-        way to reach me is LinkedIn or X — I check both daily.
+        way to reach me is LinkedIn or X, I check both daily.
       </p>
 
       <section className="mb-16">
-        <BlueprintCard label="fig. a — availability">
+        <BlueprintCard label="availability">
           <div className="flex items-center gap-3">
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--teal)" }} />
             <p style={{ color: "var(--ink)" }}>Currently available for select freelance projects</p>
