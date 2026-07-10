@@ -29,7 +29,7 @@ export default function Home() {
                 className="font-display italic text-5xl sm:text-7xl leading-[1.05]"
                 style={{ color: "var(--ink)" }}
               >
-                Sadanand Kaji <span className="text-sm align-super not-italic" aria-hidden="true">yo</span>
+                Sadanand <span className="text-sm align-super not-italic" aria-hidden="true">yo</span>
               </h1>
 
               <div className="relative shrink-0 lg:hidden">
