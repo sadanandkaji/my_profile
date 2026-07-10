@@ -15,8 +15,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const [shown, setShown] = useState(children);
   const [shownPath, setShownPath] = useState(pathname);
   const [phase, setPhase] = useState<Phase>("idle");
-  const leaveTimer = useRef<ReturnType<typeof setTimeout>>();
-  const settleTimer = useRef<ReturnType<typeof setTimeout>>();
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const settleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     if (pathname === shownPath) {
