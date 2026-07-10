@@ -76,16 +76,7 @@ export default function Background() {
       <div className="fixed inset-0 pointer-events-none -z-10 grain" style={{ opacity: 0.07 }} />
 
       {/* blueprint grid, kept faint — the CAD-tool thread still runs underneath */}
-      <div
-        className="fixed inset-0 pointer-events-none -z-10"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(232,179,77,0.05) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(232,179,77,0.05) 1px, transparent 1px)
-          `,
-          backgroundSize: "22px 22px",
-        }}
-      />
+      
 
       {/* top glow */}
       <div

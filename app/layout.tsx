@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
-import "./index.css";
+import "./global.css";
 import Nav from "@/components/Nav";
 import Background from "@/components/Background";
 import PageTransition from "@/components/PageTransition";
