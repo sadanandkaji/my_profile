@@ -32,6 +32,7 @@ export const PROJECTS: Project[] = [
     summary:
       "An EV trip planner that predicts real-world battery usage — factoring in weather, elevation, and driving style — with live charger discovery and turn-by-turn navigation along every route.",
     stack: ["Next.js", "TypeScript", "Node.js", "OpenChargeMap"],
+    githubHref: "https://github.com/sadanandkaji/voltai",
     demoHref: "https://voltai-nu.vercel.app/",
   },
   {
@@ -42,6 +43,7 @@ export const PROJECTS: Project[] = [
     summary:
       "Turns any question into a living, branching knowledge map. Ask once and watch it split into connected ideas — every node explorable, every branch saved on canvas.",
     stack: ["Next.js", "TypeScript", "AI", "Canvas API"],
+    githubHref: "https://github.com/sadanandkaji/recurcivelearningapp",
     demoHref: "https://recurcivelearningapp.vercel.app/",
   },
   {
