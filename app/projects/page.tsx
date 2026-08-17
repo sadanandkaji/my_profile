@@ -1,5 +1,20 @@
 import BlueprintCard from "@/components/BlueprintCard";
 import { PROJECTS } from "@/lib/projects";
+import { Globe } from "lucide-react";
+
+function GithubIcon({ size = 13, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={color}
+      aria-hidden="true"
+    >
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+    </svg>
+  );
+}
 
 const STATUS_COLOR: Record<string, string> = {
   "In Progress": "var(--teal)",
@@ -10,7 +25,7 @@ const STATUS_COLOR: Record<string, string> = {
 export default function Projects() {
   return (
     <div className="max-w-5xl mx-auto px-6 pt-36 pb-24">
-     
+
       <h1 className="font-display italic text-4xl sm:text-6xl mb-6" style={{ color: "var(--ink)" }}>
         Things I&apos;ve built
       </h1>
@@ -37,7 +52,7 @@ export default function Projects() {
             <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--ink-dim)" }}>
               {p.summary}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {p.stack.map((s) => (
                 <span
                   key={s}
@@ -47,11 +62,39 @@ export default function Projects() {
                   {s}
                 </span>
               ))}
+
+              {(p.githubHref || p.demoHref) && (
+                <span className="flex items-center gap-2 ml-auto">
+                  {p.githubHref && (
+                    <a
+                      href={p.githubHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${p.title} on GitHub`}
+                      className="p-1.5 rounded transition-opacity hover:opacity-70"
+                      style={{ border: "1px solid var(--line)" }}
+                    >
+                      <GithubIcon size={13} color="var(--ink-dim)" />
+                    </a>
+                  )}
+                  {p.demoHref && (
+                    <a
+                      href={p.demoHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${p.title} live demo`}
+                      className="p-1.5 rounded transition-opacity hover:opacity-70"
+                      style={{ border: "1px solid var(--line)" }}
+                    >
+                      <Globe size={13} style={{ color: "var(--gold)" }} />
+                    </a>
+                  )}
+                </span>
+              )}
             </div>
           </BlueprintCard>
         ))}
 
-      
       </div>
     </div>
   );

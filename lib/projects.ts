@@ -5,7 +5,8 @@ export type Project = {
   year: string;
   summary: string;
   stack: string[];
-  href?: string;
+  githubHref?: string;
+  demoHref?: string;
 };
 
 // -----------------------------------------------------------------------
@@ -24,30 +25,48 @@ export const PROJECTS: Project[] = [
     stack: ["Python", "React", "Rust", "Computer Vision"],
   },
   {
-    slug: "connectart",
-    title: "ConnectArt",
+    slug: "voltiq",
+    title: "VoltIQ",
     status: "Shipped",
-    year: "2025",
+    year: "2026",
     summary:
-      "A platform connecting independent artists with clients — profiles, portfolios, and commission requests in one place.",
-    stack: ["Next.js", "TypeScript", "Node.js", "SQL"],
+      "An EV trip planner that predicts real-world battery usage — factoring in weather, elevation, and driving style — with live charger discovery and turn-by-turn navigation along every route.",
+    stack: ["Next.js", "TypeScript", "Node.js", "OpenChargeMap"],
+    demoHref: "https://voltai-nu.vercel.app/",
   },
   {
-    slug: "client-project-1",
-    title: "Freelance Client Build — 01",
-    status: "Client Work",
-    year: "2025",
+    slug: "rue",
+    title: "RUE — Recursive Understanding Engine",
+    status: "Shipped",
+    year: "2026",
     summary:
-      "End-to-end web application delivered for a freelance client, from requirements to deployment.",
-    stack: ["Next.js", "TypeScript", "Node.js"],
+      "Turns any question into a living, branching knowledge map. Ask once and watch it split into connected ideas — every node explorable, every branch saved on canvas.",
+    stack: ["Next.js", "TypeScript", "AI", "Canvas API"],
+    demoHref: "https://recurcivelearningapp.vercel.app/",
   },
   {
-    slug: "client-project-2",
-    title: "Freelance Client Build — 02",
+    slug: "lavelle-venture",
+    title: "Lavelle Venture — Real Estate CRM",
     status: "Client Work",
-    year: "2024",
+    year: "2026",
     summary:
-      "A second freelance engagement, shipped successfully and handed off with documentation and support.",
-    stack: ["React", "Node.js", "NoSQL"],
+      "A real estate CRM integrated with the Instagram and WhatsApp APIs to surface AI-assisted property listings directly to leads. Includes a full admin panel for managing listings, leads, and conversations, plus a bulk messaging system that sends up to 1,000 messages in a single click alongside automated follow-up sequences to re-engage leads.",
+    stack: [
+      "React",
+      "Next.js",
+      "Prisma",
+      "PostgreSQL",
+      "WhatsApp API",
+      "Instagram API",
+    ],
+  },
+  {
+    slug: "svs-solar",
+    title: "SVS Solar — Internal Product Platform",
+    status: "Client Work",
+    year: "2026",
+    summary:
+      "An internal product management platform built for a solar company, with role-based access control (RBAC) to manage permissions across teams.",
+    stack: ["React", "Next.js", "Prisma", "PostgreSQL", "Docker"],
   },
 ];
