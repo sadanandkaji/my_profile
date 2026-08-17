@@ -29,6 +29,15 @@ export default function LuffyTracker() {
     const luffy = luffyRef.current;
     if (!wrap || !luffy) return;
 
+    // Preload every direction's asset once up front. Without this, swapping
+    // luffy.src back and forth between directions forces the browser to
+    // re-decode each GIF from scratch on every switch, which is the main
+    // source of stutter while moving diagonally (direction flips rapidly).
+    Object.values(GIFS).forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
     let animFrame: number;
     let currentDirection: keyof typeof GIFS = "still";
 

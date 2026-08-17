@@ -7,6 +7,29 @@ const BASE = "#15100A";
 export default function Background() {
   return (
     <>
+      {/* Shared torn-paper filter — defined ONCE here, referenced by every
+          BlueprintCard via url(#torn-paper-edge). Duplicating this filter
+          per-card was expensive (feTurbulence/feDisplacementMap are costly)
+          and produced duplicate-id markup, so it now lives in one place. */}
+      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+        <filter id="torn-paper-edge">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.012 0.045"
+            numOctaves="2"
+            seed="7"
+            result="noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="14"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </svg>
+
       {/* base wash */}
       <div className="fixed inset-0 pointer-events-none -z-30" style={{ background: BASE }} />
 
@@ -19,7 +42,7 @@ export default function Background() {
           backgroundPosition: "center 26%",
           opacity: 0.42,
           filter: "sepia(0.65) contrast(1.15) brightness(0.5) saturate(0.8) blur(3px)",
-          transform: "scale(1.08)",
+          transform: "scale(1.08) translateZ(0)",
         }}
       />
 
@@ -45,7 +68,7 @@ export default function Background() {
           opacity: 0.14,
           mixBlendMode: "screen",
           filter: "sepia(0.3) contrast(1.15) blur(0.5px)",
-          transform: "rotate(6deg)",
+          transform: "rotate(6deg) translateZ(0)",
         }}
       />
       <div
@@ -62,7 +85,7 @@ export default function Background() {
           opacity: 0.11,
           mixBlendMode: "screen",
           filter: "sepia(0.3) contrast(1.15) blur(0.5px)",
-          transform: "rotate(-4deg)",
+          transform: "rotate(-4deg) translateZ(0)",
         }}
       />
 
@@ -76,7 +99,7 @@ export default function Background() {
       <div className="fixed inset-0 pointer-events-none -z-10 grain" style={{ opacity: 0.07 }} />
 
       {/* blueprint grid, kept faint — the CAD-tool thread still runs underneath */}
-      
+
 
       {/* top glow */}
       <div

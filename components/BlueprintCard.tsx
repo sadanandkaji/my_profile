@@ -20,27 +20,10 @@ export default function BlueprintCard({
         </div>
       )}
 
-      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-        <filter id="torn-paper-edge">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.012 0.045"
-            numOctaves="3"
-            seed="7"
-            result="noise"
-          />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="noise"
-            scale="14"
-            xChannelSelector="R"
-            yChannelSelector="G"
-          />
-        </filter>
-      </svg>
-
       <div className="relative rounded-[2px]">
-        {/* PAPER LAYER — only this gets distorted. No text lives here. */}
+        {/* PAPER LAYER — only this gets distorted. No text lives here.
+            References the shared #torn-paper-edge filter defined once in
+            Background.tsx — do not re-declare it here. */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
