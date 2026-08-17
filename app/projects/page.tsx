@@ -1,5 +1,5 @@
 import BlueprintCard from "@/components/BlueprintCard";
-import { PROJECTS } from "@/lib/projects";
+import { PROJECTS, Project } from "@/lib/projects";
 import { Globe } from "lucide-react";
 
 function GithubIcon({ size = 13, color = "currentColor" }: { size?: number; color?: string }) {
@@ -22,6 +22,86 @@ const STATUS_COLOR: Record<string, string> = {
   "Client Work": "var(--ink-dim)",
 };
 
+const SECTIONS: { status: Project["status"]; label: string; blurb: string }[] = [
+  {
+    status: "In Progress",
+    label: "In Progress",
+    blurb: "Currently building.",
+  },
+  {
+    status: "Shipped",
+    label: "Shipped",
+    blurb: "Personal projects, live and out in the world.",
+  },
+  {
+    status: "Client Work",
+    label: "Client Work",
+    blurb: "Freelance engagements delivered end-to-end.",
+  },
+];
+
+function ProjectCard({ p, i }: { p: Project; i: number }) {
+  return (
+    <BlueprintCard label={`fig. ${String(i + 1).padStart(2, "0")}`}>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="w-1.5 h-1.5 rounded-full" style={{ background: STATUS_COLOR[p.status] }} />
+        <span className="text-[10px] uppercase tracking-[0.15em]" style={{ fontFamily: "var(--font-mono)", color: STATUS_COLOR[p.status] }}>
+          {p.status}
+        </span>
+        <span className="text-[10px] ml-auto" style={{ fontFamily: "var(--font-mono)", color: "var(--ink-dim)" }}>
+          {p.year}
+        </span>
+      </div>
+      <h2 className="font-display italic text-xl mb-2" style={{ color: "var(--ink)" }}>
+        {p.title}
+      </h2>
+      <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--ink-dim)" }}>
+        {p.summary}
+      </p>
+      <div className="flex flex-wrap items-center gap-2">
+        {p.stack.map((s) => (
+          <span
+            key={s}
+            className="text-[10px] px-2 py-1 rounded"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--gold)", border: "1px solid var(--line)" }}
+          >
+            {s}
+          </span>
+        ))}
+
+        {(p.githubHref || p.demoHref) && (
+          <span className="flex items-center gap-2 ml-auto">
+            {p.githubHref && (
+              <a
+                href={p.githubHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${p.title} on GitHub`}
+                className="p-1.5 rounded transition-opacity hover:opacity-70"
+                style={{ border: "1px solid var(--line)" }}
+              >
+                <GithubIcon size={13} color="var(--ink-dim)" />
+              </a>
+            )}
+            {p.demoHref && (
+              <a
+                href={p.demoHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${p.title} live demo`}
+                className="p-1.5 rounded transition-opacity hover:opacity-70"
+                style={{ border: "1px solid var(--line)" }}
+              >
+                <Globe size={13} style={{ color: "var(--gold)" }} />
+              </a>
+            )}
+          </span>
+        )}
+      </div>
+    </BlueprintCard>
+  );
+}
+
 export default function Projects() {
   return (
     <div className="max-w-5xl mx-auto px-6 pt-36 pb-24">
@@ -34,68 +114,39 @@ export default function Projects() {
         client work  updated as new ones ship.
       </p>
 
-      <div className="grid sm:grid-cols-2 gap-x-8 gap-y-16">
-        {PROJECTS.map((p, i) => (
-          <BlueprintCard key={p.slug} label={`fig. ${String(i + 1).padStart(2, "0")}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: STATUS_COLOR[p.status] }} />
-              <span className="text-[10px] uppercase tracking-[0.15em]" style={{ fontFamily: "var(--font-mono)", color: STATUS_COLOR[p.status] }}>
-                {p.status}
-              </span>
-              <span className="text-[10px] ml-auto" style={{ fontFamily: "var(--font-mono)", color: "var(--ink-dim)" }}>
-                {p.year}
+      {SECTIONS.map((section) => {
+        const items = PROJECTS.filter((p) => p.status === section.status);
+        if (items.length === 0) return null;
+
+        return (
+          <div key={section.status} className="mb-20 last:mb-0">
+            <div className="flex items-baseline gap-3 mb-2">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: STATUS_COLOR[section.status] }} />
+              <h3
+                className="text-xs uppercase tracking-[0.2em]"
+                style={{ fontFamily: "var(--font-mono)", color: STATUS_COLOR[section.status] }}
+              >
+                {section.label}
+              </h3>
+              <span
+                className="text-[10px]"
+                style={{ fontFamily: "var(--font-mono)", color: "var(--ink-dim)" }}
+              >
+                ({items.length})
               </span>
             </div>
-            <h2 className="font-display italic text-xl mb-2" style={{ color: "var(--ink)" }}>
-              {p.title}
-            </h2>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--ink-dim)" }}>
-              {p.summary}
+            <p className="text-sm mb-8" style={{ color: "var(--ink-dim)" }}>
+              {section.blurb}
             </p>
-            <div className="flex flex-wrap items-center gap-2">
-              {p.stack.map((s) => (
-                <span
-                  key={s}
-                  className="text-[10px] px-2 py-1 rounded"
-                  style={{ fontFamily: "var(--font-mono)", color: "var(--gold)", border: "1px solid var(--line)" }}
-                >
-                  {s}
-                </span>
+
+            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-16">
+              {items.map((p, i) => (
+                <ProjectCard key={p.slug} p={p} i={i} />
               ))}
-
-              {(p.githubHref || p.demoHref) && (
-                <span className="flex items-center gap-2 ml-auto">
-                  {p.githubHref && (
-                    <a
-                      href={p.githubHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${p.title} on GitHub`}
-                      className="p-1.5 rounded transition-opacity hover:opacity-70"
-                      style={{ border: "1px solid var(--line)" }}
-                    >
-                      <GithubIcon size={13} color="var(--ink-dim)" />
-                    </a>
-                  )}
-                  {p.demoHref && (
-                    <a
-                      href={p.demoHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${p.title} live demo`}
-                      className="p-1.5 rounded transition-opacity hover:opacity-70"
-                      style={{ border: "1px solid var(--line)" }}
-                    >
-                      <Globe size={13} style={{ color: "var(--gold)" }} />
-                    </a>
-                  )}
-                </span>
-              )}
             </div>
-          </BlueprintCard>
-        ))}
-
-      </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
