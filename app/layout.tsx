@@ -1,35 +1,37 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/Nav";
+import { WorkbenchProvider } from "@/components/Workbench";
 import Background from "@/components/Background";
+import Rulers from "@/components/Rulers";
+import Nav from "@/components/Nav";
+import StatusBar from "@/components/StatusBar";
+import Inspector from "@/components/Inspector";
+import CommandPalette from "@/components/CommandPalette";
+import Vim from "@/components/Vim";
 import PageTransition from "@/components/PageTransition";
-import LuffyTracker from "@/components/LuffyTracker";
-import CoordinateHUD from "@/components/CoordinateHUD";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
-
 export const metadata: Metadata = {
-  title: "Sadanand Kaji — Developer",
+  title: "Sadanand Kaji — AI Agent Engineer · Design Engineer · System Architect · Full-Stack Developer",
   description:
-    "Sadanand Kaji — MCA (RVITM), full-stack developer and freelancer. Building an AI-based CAD application. Two freelance projects delivered, multiple hackathon wins.",
+    "Sadanand Kaji — AI agent engineer, design engineer, system architect and full-stack developer (MCA, RVITM). Building an AI-based CAD application. Freelance client work shipped, multiple hackathon wins.",
 };
 
 export default function RootLayout({
@@ -39,17 +41,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
-        style={{ fontFamily: "var(--font-inter)", background: "var(--bg)", color: "var(--ink)" }}
-      >
-        <Background />
-        <Nav />
-        <main className="relative z-10">
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <CoordinateHUD />
-        <LuffyTracker />
+      <body className={`${geist.variable} ${geistMono.variable} ${instrument.variable} antialiased`}>
+        <WorkbenchProvider>
+          <Background />
+          <Rulers />
+          <Nav />
+          <main className="relative z-10 md:pl-5">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <StatusBar />
+          <Inspector />
+          <CommandPalette />
+          <Vim />
+        </WorkbenchProvider>
       </body>
     </html>
   );

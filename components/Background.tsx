@@ -1,126 +1,17 @@
-const BASE = "#15100A";
-
-// Signature backdrop: two "archive plates" — a soft photograph of the coil
-// rig and its halftone-printed twin — sit behind every page like specimen
-// plates in an old instrument catalog. Both are blurred and pushed low in
-// opacity/contrast so body copy always wins the read.
+// Design-canvas backdrop: a faint dot grid plus two soft light pools —
+// one in selection blue, one in terminal green — the two halves of the job.
 export default function Background() {
   return (
-    <>
-      {/* Shared torn-paper filter — defined ONCE here, referenced by every
-          BlueprintCard via url(#torn-paper-edge). Duplicating this filter
-          per-card was expensive (feTurbulence/feDisplacementMap are costly)
-          and produced duplicate-id markup, so it now lives in one place. */}
-      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-        <filter id="torn-paper-edge">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.012 0.045"
-            numOctaves="2"
-            seed="7"
-            result="noise"
-          />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="noise"
-            scale="14"
-            xChannelSelector="R"
-            yChannelSelector="G"
-          />
-        </filter>
-      </svg>
-
-      {/* base wash */}
-      <div className="fixed inset-0 pointer-events-none -z-30" style={{ background: BASE }} />
-
-      {/* primary plate — the photograph, visible through a light blur, sepia and pushed contrast */}
+    <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 canvas-dots" />
       <div
-        className="fixed inset-0 pointer-events-none -z-20 plate"
-        style={{
-          backgroundImage: "url(/textures/plate-photograph.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center 26%",
-          opacity: 0.42,
-          filter: "sepia(0.65) contrast(1.15) brightness(0.5) saturate(0.8) blur(3px)",
-          transform: "scale(1.08) translateZ(0)",
-        }}
-      />
-
-      {/* darken pass over the plate so body copy still wins the read at this higher opacity */}
-      <div
-        className="fixed inset-0 pointer-events-none -z-20"
-        style={{ background: "linear-gradient(180deg, rgba(21,16,10,0.55) 0%, rgba(21,16,10,0.72) 45%, rgba(21,16,10,0.88) 100%)" }}
-      />
-
-      {/* secondary plate — the halftone print, a rotated proof sheet. Smaller + lower on mobile, larger top-right on desktop */}
-      <div
-        className="fixed pointer-events-none -z-20"
-        style={{
-          top: "auto",
-          bottom: "-10%",
-          right: "-18%",
-          width: "72vw",
-          maxWidth: 320,
-          aspectRatio: "0.55",
-          backgroundImage: "url(/textures/plate-halftone.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.14,
-          mixBlendMode: "screen",
-          filter: "sepia(0.3) contrast(1.15) blur(0.5px)",
-          transform: "rotate(6deg) translateZ(0)",
-        }}
+        className="absolute -top-40 left-1/2 -translate-x-[70%] w-[46rem] h-[30rem] rounded-full blur-[120px] opacity-[0.13]"
+        style={{ background: "var(--sel)" }}
       />
       <div
-        className="fixed pointer-events-none -z-20 hidden sm:block"
-        style={{
-          top: "-6%",
-          right: "-8%",
-          width: "46vw",
-          maxWidth: 560,
-          aspectRatio: "0.55",
-          backgroundImage: "url(/textures/plate-halftone.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.11,
-          mixBlendMode: "screen",
-          filter: "sepia(0.3) contrast(1.15) blur(0.5px)",
-          transform: "rotate(-4deg) translateZ(0)",
-        }}
+        className="absolute top-[30rem] right-[-10rem] w-[30rem] h-[24rem] rounded-full blur-[130px] opacity-[0.06]"
+        style={{ background: "var(--term)" }}
       />
-
-      {/* foxing — the brownish age-spots that bloom on old paper stock */}
-      <div className="fixed inset-0 pointer-events-none -z-10 foxing" />
-
-      {/* halftone dot screen over everything, like re-scanning a printed page */}
-      <div className="fixed inset-0 pointer-events-none -z-10 halftone" style={{ opacity: 0.07, mixBlendMode: "overlay" }} />
-
-      {/* film grain */}
-      <div className="fixed inset-0 pointer-events-none -z-10 grain" style={{ opacity: 0.07 }} />
-
-      {/* blueprint grid, kept faint — the CAD-tool thread still runs underneath */}
-
-
-      {/* top glow */}
-      <div
-        className="fixed inset-0 pointer-events-none -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232,179,77,0.09), transparent 60%)",
-        }}
-      />
-
-      {/* vignette — presses the eye back to the center column */}
-      <div
-        className="fixed inset-0 pointer-events-none -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse 100% 70% at 50% 30%, transparent 30%, var(--vignette) 100%)",
-        }}
-      />
-
-      {/* deckled edge — a rough, uneven border framing the whole viewport like a torn sheet */}
-      <div className="fixed inset-0 pointer-events-none z-40 deckle-frame" />
-    </>
+    </div>
   );
 }

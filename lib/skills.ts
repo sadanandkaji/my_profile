@@ -1,5 +1,15 @@
 export const SKILLS = [
   {
+    group: "AI & Agents",
+    ref: "AI",
+    items: ["LLM APIs", "Tool calling", "Agent loops", "RAG", "Prompting"],
+  },
+  {
+    group: "System Architecture",
+    ref: "SYS",
+    items: ["System design", "REST APIs", "RBAC", "Docker", "PostgreSQL"],
+  },
+  {
     group: "Frontend",
     ref: "FE",
     items: ["React", "Next.js", "TypeScript", "JavaScript"],
