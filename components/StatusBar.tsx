@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { GitBranch, Check, Crosshair, Gamepad2 } from "lucide-react";
 import { useWorkbench } from "@/components/Workbench";
+import { sfx } from "@/components/sfx";
 
 const FILES: Record<string, string> = {
   "/": "app/page.tsx",
@@ -97,7 +98,10 @@ export default function StatusBar() {
         <span className="hidden sm:inline tabular-nums">IST {time}</span>
         <button
           type="button"
-          onClick={() => setSnake(!snake)}
+          onClick={() => {
+            sfx.unlock();
+            setSnake(!snake);
+          }}
           title="Play snake (S)"
           className={`flex items-center gap-1.5 h-6 md:h-5 px-2.5 md:px-2 rounded-full border transition-colors ${
             snake ? "border-red/50 text-red bg-red/10" : "border-term/30 text-term bg-term/[0.06] hover:bg-term/15"

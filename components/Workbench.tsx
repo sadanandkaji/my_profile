@@ -1,5 +1,6 @@
 "use client";
 
+import { sfx } from "@/components/sfx";
 import {
   createContext,
   useCallback,
@@ -97,6 +98,7 @@ export function WorkbenchProvider({ children }: { children: ReactNode }) {
       }
       if (isTyping(e.target) || e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key === "s") {
+        sfx.unlock();
         setSnake((v) => !v);
         return;
       }

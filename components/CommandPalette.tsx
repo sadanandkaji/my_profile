@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight, CornerDownLeft, Crosshair, FileCode2, Search } from "lucide-react";
 import { useWorkbench } from "@/components/Workbench";
+import { sfx } from "@/components/sfx";
 import { NAV_ITEMS } from "@/components/Nav";
 import { SOCIALS } from "@/lib/socials";
 import { PROJECTS } from "@/lib/projects";
@@ -49,7 +50,10 @@ export default function CommandPalette() {
         label: "Play snake on the grid",
         hint: "S",
         icon: "tool",
-        run: () => setSnake(true),
+        run: () => {
+          sfx.unlock();
+          setSnake(true);
+        },
       },
       {
         id: "vim",

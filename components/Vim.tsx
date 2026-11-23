@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { isTyping, useWorkbench } from "@/components/Workbench";
 import { NAV_ITEMS } from "@/components/Nav";
+import { sfx } from "@/components/sfx";
 
 type LenisLike = { scroll: number; limit: number; scrollTo(t: number, o?: { immediate?: boolean }): void };
 const lenis = () => (window as unknown as { __lenis?: LenisLike }).__lenis;
@@ -137,7 +138,10 @@ export default function Vim() {
       setPlain(false);
       flash("developer view on");
     } else if (c === "inspect") toggleInspect();
-    else if (c === "snake") setSnake(true);
+    else if (c === "snake") {
+      sfx.unlock();
+      setSnake(true);
+    }
     else if (c === "help" || c === "h") setHelpOpen(true);
     else if (["q", "q!", "wq", "x", "qa"].includes(c)) flash("E37: nobody ever really quits vim. stay a while :)");
     else if (c === "w") flash('"portfolio" written — already deployed');
