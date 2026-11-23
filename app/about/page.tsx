@@ -60,7 +60,7 @@ export default function About() {
       </header>
 
       {/* Principles */}
-      <section className="mb-28">
+      <section className="mb-28" data-reveal>
         <SectionHead index="01" title="How I work" note="principles.md" />
         <div className="grid sm:grid-cols-2 gap-5">
           {PRINCIPLES.map((p) => (
@@ -76,7 +76,7 @@ export default function About() {
       </section>
 
       {/* Git log */}
-      <section className="mb-28">
+      <section className="mb-28" data-reveal>
         <SectionHead index="02" title="git log" note="--graph --oneline" />
         <ViewSwitch
           dev={
@@ -134,7 +134,7 @@ export default function About() {
       </section>
 
       {/* Education */}
-      <section className="mb-28">
+      <section className="mb-28" data-reveal>
         <SectionHead index="03" title="Education" />
         <div className="grid sm:grid-cols-[1fr_auto] items-end gap-6 p-6 rounded-xl border border-line-2 bg-panel/80">
           <div>
@@ -147,7 +147,7 @@ export default function About() {
       </section>
 
       {/* Skills as dependencies */}
-      <section>
+      <section data-reveal>
         <SectionHead index="04" title="Dependencies" note="package.json" />
         <ViewSwitch
           dev={

@@ -9,6 +9,8 @@ import StatusBar from "@/components/StatusBar";
 import Inspector from "@/components/Inspector";
 import CommandPalette from "@/components/CommandPalette";
 import Vim from "@/components/Vim";
+import Snake from "@/components/Snake";
+import { Reveal, SmoothScroll } from "@/components/Smooth";
 import PageTransition from "@/components/PageTransition";
 
 const geist = Geist({
@@ -44,6 +46,7 @@ export default function RootLayout({
       <body className={`${geist.variable} ${geistMono.variable} ${instrument.variable} antialiased`}>
         <WorkbenchProvider>
           <Background />
+          <Snake />
           <Rulers />
           <Nav />
           <main className="relative z-10 md:pl-5">
@@ -53,6 +56,8 @@ export default function RootLayout({
           <Inspector />
           <CommandPalette />
           <Vim />
+          <SmoothScroll />
+          <Reveal />
         </WorkbenchProvider>
       </body>
     </html>

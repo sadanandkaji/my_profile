@@ -60,13 +60,13 @@ export default function Home() {
             <span className="text-sel text-[34px] sm:text-[46px]">.</span>
           </p>
           <ul
-            className="rise mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-[17px] sm:text-[20px] tracking-tight text-dim"
+            className="rise mt-4 flex flex-wrap items-center gap-x-5 sm:gap-x-3 gap-y-1.5 text-[17px] sm:text-[20px] tracking-tight text-dim"
             style={{ animationDelay: "260ms" }}
             aria-label="Also"
           >
             {["Design Engineer", "System Architect", "Full-Stack Developer"].map((r, i) => (
               <li key={r} className="flex items-center gap-3">
-                {i > 0 && <span className="w-1 h-1 rounded-full bg-faint" aria-hidden="true" />}
+                {i > 0 && <span className="hidden sm:block w-1 h-1 rounded-full bg-faint" aria-hidden="true" />}
                 {r}
               </li>
             ))}
@@ -164,7 +164,7 @@ export default function Home() {
       </section>
 
       {/* ─────────────── Spec: code + properties ─────────────── */}
-      <section className="mb-32">
+      <section className="mb-32" data-reveal>
         <SectionHead index="01" title="Spec sheet" note="same data, two views — the code and the panel" />
         <ViewSwitch
           dev={
@@ -238,7 +238,7 @@ export default function Home() {
       </section>
 
       {/* ─────────────── Currently building ─────────────── */}
-      <section className="mb-32">
+      <section className="mb-32" data-reveal>
         <SectionHead index="02" title="Currently building" note={`${featured.year} · active`} />
         <EditorWindow
           title={`${featured.slug}/README.md`}
@@ -305,7 +305,7 @@ export default function Home() {
       </section>
 
       {/* ─────────────── Agents ─────────────── */}
-      <section className="mb-32" id="agents">
+      <section className="mb-32" id="agents" data-reveal>
         <SectionHead index="03" title="Agents" note="plan → act → observe → verify" />
         <div className="grid lg:grid-cols-[1fr_2.2fr] gap-8 items-start">
           <div className="lg:sticky lg:top-32">
@@ -336,7 +336,7 @@ export default function Home() {
       </section>
 
       {/* ─────────────── Stack ─────────────── */}
-      <section className="mb-32">
+      <section className="mb-32" data-reveal>
         <SectionHead index="04" title="Stack" note="components I reach for" />
         <ViewSwitch
           dev={
@@ -350,7 +350,7 @@ export default function Home() {
                       <span className="ml-auto text-faint">{group.ref}</span>
                     </p>
                     <Selection hoverOnly showSize={false} inset={4}>
-                      <div className="min-h-[124px] p-3 rounded-lg border border-line-2 bg-panel/70 flex flex-wrap content-start gap-2">
+                      <div className="sm:min-h-[124px] p-3 rounded-lg border border-line-2 bg-panel/70 flex flex-wrap content-start gap-2">
                         {group.items.map((item) => (
                           <span
                             key={item}
@@ -371,16 +371,16 @@ export default function Home() {
       </section>
 
       {/* ─────────────── Work log ─────────────── */}
-      <section className="mb-32">
+      <section className="mb-32" data-reveal>
         <SectionHead index="05" title="Work log" note={`${PROJECTS.length} entries · newest first`} />
         <ul className="divide-y divide-[var(--line)] border-b border-line">
-          {PROJECTS.map((p) => (
-            <li key={p.slug}>
+          {PROJECTS.map((p, i) => (
+            <li key={p.slug} data-reveal style={{ "--d": `${i * 70}ms` } as React.CSSProperties}>
               <Link
                 href="/projects"
-                className="group grid grid-cols-[auto_1fr_auto] sm:grid-cols-[80px_1fr_140px_60px_20px] items-center gap-4 sm:gap-6 py-5 px-2 -mx-2 rounded-md hover:bg-white/[0.025] transition-colors"
+                className="group grid grid-cols-[1fr_auto] sm:grid-cols-[80px_1fr_140px_60px_20px] items-center gap-4 sm:gap-6 py-5 px-2 -mx-2 rounded-md hover:bg-white/[0.025] transition-colors"
               >
-                <span className="font-mono text-[11px] text-faint">{shortHash(p.slug)}</span>
+                <span className="hidden sm:block font-mono text-[11px] text-faint">{shortHash(p.slug)}</span>
                 <span className="min-w-0">
                   <span className="block text-[16px] sm:text-[17px] text-ink truncate">{p.title}</span>
                   <span className="block text-[13px] text-dim truncate mt-0.5">{p.summary}</span>
@@ -404,7 +404,7 @@ export default function Home() {
       </section>
 
       {/* ─────────────── CTA ─────────────── */}
-      <section className="grid lg:grid-cols-[1fr_1fr] gap-10 items-center">
+      <section className="grid lg:grid-cols-[1fr_1fr] gap-10 items-center" data-reveal>
         <div>
           <h2 className="text-[40px] sm:text-[56px] font-semibold tracking-[-0.04em] leading-[0.95]">
             Have something

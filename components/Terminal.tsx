@@ -34,7 +34,7 @@ export default function Terminal({ lines, title = "zsh — ~/sadanand" }: { line
   }, [step, chars, lines]);
 
   return (
-    <EditorWindow title={title} dot="var(--term)" bodyClassName="p-5 sm:p-6 font-mono text-[13px] leading-[1.85] min-h-[300px]">
+    <EditorWindow title={title} dot="var(--term)" bodyClassName="p-5 sm:p-6 font-mono text-[13px] leading-[1.85] min-h-[230px] md:min-h-[300px]">
       {lines.map((l, i) => {
         if (i > step) return null;
         const typing = i === step;

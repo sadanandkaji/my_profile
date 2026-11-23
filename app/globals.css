@@ -46,11 +46,24 @@
 }
 
 html {
-  scroll-behavior: smooth;
   background: var(--bg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
+  overflow-x: clip;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
@@ -219,4 +232,43 @@ html.inspecting * {
 @keyframes ping {
   0% { transform: scale(0.6); opacity: 0.7; }
   100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll reveal                                                       */
+/* ------------------------------------------------------------------ */
+[data-reveal] {
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--d, 0ms);
+}
+.reveal-ready [data-reveal]:not(.revealed) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Snake play mode — the page fades so the grid becomes the board      */
+/* ------------------------------------------------------------------ */
+main {
+  transition:
+    opacity 0.5s ease,
+    filter 0.5s ease;
+}
+html.snake-playing main {
+  opacity: 0.07;
+  filter: blur(3px);
+  pointer-events: none;
+}
+html.snake-playing,
+html.snake-playing body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Softer, consistent motion for interactive elements */
+a,
+button {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }

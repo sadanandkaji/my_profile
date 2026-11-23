@@ -28,6 +28,9 @@ type Workbench = {
   flash: (msg: string) => void;
   helpOpen: boolean;
   setHelpOpen: (v: boolean) => void;
+  /** Snake game on the background grid */
+  snake: boolean;
+  setSnake: (v: boolean) => void;
 };
 
 const Ctx = createContext<Workbench | null>(null);
@@ -55,6 +58,7 @@ export function WorkbenchProvider({ children }: { children: ReactNode }) {
   const [vimMode, setVimMode] = useState<VimMode>("NORMAL");
   const [vimMessage, setVimMessage] = useState("");
   const [helpOpen, setHelpOpen] = useState(false);
+  const [snake, setSnake] = useState(false);
   const toggleInspect = useCallback(() => setInspect((v) => !v), []);
 
   // remember the visitor's view choice
@@ -88,10 +92,17 @@ export function WorkbenchProvider({ children }: { children: ReactNode }) {
         setPaletteOpen(false);
         setInspect(false);
         setHelpOpen(false);
+        setSnake(false);
+        return;
+      }
+      if (isTyping(e.target) || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "s") {
+        setSnake((v) => !v);
         return;
       }
       if (
         e.key.toLowerCase() === "i" &&
+        !document.documentElement.classList.contains("snake-playing") &&
         !e.metaKey &&
         !e.ctrlKey &&
         !e.altKey &&
@@ -119,8 +130,10 @@ export function WorkbenchProvider({ children }: { children: ReactNode }) {
       flash,
       helpOpen,
       setHelpOpen,
+      snake,
+      setSnake,
     }),
-    [inspect, toggleInspect, paletteOpen, plain, setPlain, vimMode, vimMessage, flash, helpOpen]
+    [inspect, toggleInspect, paletteOpen, plain, setPlain, vimMode, vimMessage, flash, helpOpen, snake]
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

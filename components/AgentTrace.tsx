@@ -82,7 +82,7 @@ export default function AgentTrace() {
         bodyClassName="grid md:grid-cols-[1fr_220px]"
       >
         {/* trace */}
-        <ol className="p-5 sm:p-6 font-mono text-[12.5px] leading-relaxed space-y-3 min-h-[430px]">
+        <ol className="p-5 sm:p-6 font-mono text-[12.5px] leading-relaxed space-y-3 min-h-[340px] md:min-h-[430px]">
           {RUN.map((s, i) => {
             if (i > shown) return null;
             const pending = i === shown;

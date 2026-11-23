@@ -25,7 +25,7 @@ export default function Contact() {
         </p>
       </header>
 
-      <section className="mb-24">
+      <section className="mb-24" data-reveal>
         <ViewSwitch
           dev={
             <>
@@ -80,7 +80,7 @@ export default function Contact() {
         />
       </section>
 
-      <section>
+      <section data-reveal>
         <SectionHead index="01" title="Elsewhere" note="opens in a new tab" />
         <div className="grid sm:grid-cols-2 gap-5">
           {SOCIALS.map((s) => (

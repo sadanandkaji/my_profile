@@ -18,7 +18,7 @@ type Cmd = {
 };
 
 export default function CommandPalette() {
-  const { paletteOpen, setPaletteOpen, toggleInspect, plain, setPlain, setHelpOpen } = useWorkbench();
+  const { paletteOpen, setPaletteOpen, toggleInspect, plain, setPlain, setHelpOpen, setSnake } = useWorkbench();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
@@ -42,6 +42,14 @@ export default function CommandPalette() {
         hint: plain ? ":dev" : ":plain",
         icon: "tool",
         run: () => setPlain(!plain),
+      },
+      {
+        id: "snake",
+        group: "Tools",
+        label: "Play snake on the grid",
+        hint: "S",
+        icon: "tool",
+        run: () => setSnake(true),
       },
       {
         id: "vim",
@@ -84,7 +92,7 @@ export default function CommandPalette() {
         run: () => open(s.href),
       })),
     ];
-  }, [router, toggleInspect, plain, setPlain, setHelpOpen]);
+  }, [router, toggleInspect, plain, setPlain, setHelpOpen, setSnake]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

@@ -5,6 +5,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { isTyping, useWorkbench } from "@/components/Workbench";
 import { NAV_ITEMS } from "@/components/Nav";
 
+type LenisLike = { scroll: number; limit: number; scrollTo(t: number, o?: { immediate?: boolean }): void };
+const lenis = () => (window as unknown as { __lenis?: LenisLike }).__lenis;
+const scrollToY = (y: number) => {
+  const l = lenis();
+  if (l) l.scrollTo(Math.max(0, Math.min(y, l.limit)));
+  else window.scrollTo({ top: y, behavior: "smooth" });
+};
+const scrollByY = (dy: number) => scrollToY((lenis()?.scroll ?? window.scrollY) + dy);
+
 export const VIM_KEYS: [string, string][] = [
   ["j / k", "scroll down / up"],
   ["d / u", "half page down / up"],
@@ -13,6 +22,7 @@ export const VIM_KEYS: [string, string][] = [
   ["/", "search (command palette)"],
   [":", "command line"],
   ["i", "toggle inspect mode"],
+  ["s", "play snake"],
   ["?", "this help"],
 ];
 
@@ -21,6 +31,7 @@ export const VIM_COMMANDS: [string, string][] = [
   [":agents", "jump to the agent demo"],
   [":plain  :dev", "switch plain-English / developer view"],
   [":inspect", "toggle inspect mode"],
+  [":snake", "play snake on the grid"],
   [":help", "show keybindings"],
   [":q", "try to quit"],
 ];
@@ -30,8 +41,19 @@ export const VIM_COMMANDS: [string, string][] = [
 export default function Vim() {
   const router = useRouter();
   const pathname = usePathname();
-  const { vimMode, setVimMode, flash, paletteOpen, setPaletteOpen, toggleInspect, setPlain, helpOpen, setHelpOpen } =
-    useWorkbench();
+  const {
+    vimMode,
+    setVimMode,
+    flash,
+    paletteOpen,
+    setPaletteOpen,
+    toggleInspect,
+    setPlain,
+    helpOpen,
+    setHelpOpen,
+    snake,
+    setSnake,
+  } = useWorkbench();
   const [cmd, setCmd] = useState("");
   const lastG = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,28 +67,28 @@ export default function Vim() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      if (paletteOpen || vimMode === "COMMAND" || isTyping(e.target)) return;
+      if (paletteOpen || snake || vimMode === "COMMAND" || isTyping(e.target)) return;
       const half = window.innerHeight / 2;
       switch (e.key) {
         case "j":
-          window.scrollBy({ top: 90 });
+          scrollByY(110);
           break;
         case "k":
-          window.scrollBy({ top: -90 });
+          scrollByY(-110);
           break;
         case "d":
-          window.scrollBy({ top: half });
+          scrollByY(half);
           break;
         case "u":
-          window.scrollBy({ top: -half });
+          scrollByY(-half);
           break;
         case "G":
-          window.scrollTo({ top: document.body.scrollHeight });
+          scrollToY(document.body.scrollHeight);
           break;
         case "g": {
           const now = Date.now();
           if (now - lastG.current < 500) {
-            window.scrollTo({ top: 0 });
+            scrollToY(0);
             lastG.current = 0;
           } else lastG.current = now;
           break;
@@ -95,7 +117,7 @@ export default function Vim() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [paletteOpen, vimMode, pageIndex, router, setPaletteOpen, setVimMode, helpOpen, setHelpOpen]);
+  }, [paletteOpen, snake, vimMode, pageIndex, router, setPaletteOpen, setVimMode, helpOpen, setHelpOpen]);
 
   useEffect(() => {
     if (vimMode === "COMMAND") requestAnimationFrame(() => inputRef.current?.focus());
@@ -115,6 +137,7 @@ export default function Vim() {
       setPlain(false);
       flash("developer view on");
     } else if (c === "inspect") toggleInspect();
+    else if (c === "snake") setSnake(true);
     else if (c === "help" || c === "h") setHelpOpen(true);
     else if (["q", "q!", "wq", "x", "qa"].includes(c)) flash("E37: nobody ever really quits vim. stay a while :)");
     else if (c === "w") flash('"portfolio" written — already deployed');
